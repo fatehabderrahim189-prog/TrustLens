@@ -63,6 +63,16 @@ class TestUncertainty(unittest.TestCase):
         self.assertGreaterEqual(coverage, 0.75)
         self.assertLessEqual(coverage, 0.99)
 
+    def test_prediction_sets_respect_class_count(self):
+        rng = np.random.default_rng(10)
+        p = rng.dirichlet(np.array([0.2, 1.0, 3.0, 0.5]), 1000)
+        y = np.array([rng.choice(4, p=row) for row in p])
+        q = conformal_threshold(p[:500], y[:500], alpha=0.1)
+        sets = prediction_sets(p[500:], q)
+
+        self.assertEqual(len(sets), 500)
+        self.assertTrue(all(1 <= len(s) <= 4 for s in sets))
+
 
 class TestDriftAndExplain(unittest.TestCase):
     def test_psi_same_vs_shifted(self):
