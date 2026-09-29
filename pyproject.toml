@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trustlens"
+version = "0.1.0"
+description = "Model-agnostic trust & evaluation layer for human-governed AI: calibration, conformal uncertainty, human-escalation policy, drift, explanation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Fateh Abderrahim Boukhalfa" }]
+keywords = ["trustworthy-ai", "calibration", "conformal-prediction", "model-card", "human-in-the-loop", "drift"]
+dependencies = ["numpy>=1.26", "pandas>=2.0", "scipy>=1.11", "scikit-learn>=1.3", "matplotlib>=3.7"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[project.scripts]
+trustlens = "trustlens.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["trustlens*"]
+
+[tool.ruff]
+line-length = 130
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E701", "E702", "E731", "E741", "I001"]

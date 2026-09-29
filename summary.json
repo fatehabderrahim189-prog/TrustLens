@@ -1,0 +1,138 @@
+{
+  "radioscreen": {
+    "name": "RadioScreen (proxy: tabular diagnostic data)",
+    "task": "classification",
+    "trust_score": 80.2,
+    "verdict": "Deployable with monitoring",
+    "pillars": {
+      "Calibration": 75.6,
+      "Uncertainty coverage": 94.7,
+      "Selective safety": 100.0,
+      "Stability": 57.8,
+      "Subgroup parity": 72.7
+    },
+    "metrics": {
+      "accuracy": 0.9532163742690059,
+      "accuracy_ci": [
+        0.9181286549707602,
+        0.9824561403508771
+      ],
+      "ece": 0.03659980598817847,
+      "ece_ci": [
+        0.015948452945027124,
+        0.07492717845190297
+      ],
+      "mce": 0.7791065730206357,
+      "brier": 0.0812277639403376,
+      "log_loss": 0.2753041561622521,
+      "temperature": 4.335585397529342,
+      "ece_after_temperature_scaling": 0.01089976723059798,
+      "conformal_target": 0.9,
+      "conformal_coverage": 0.8947368421052632,
+      "mean_set_size": 0.9181286549707602,
+      "singleton_rate": 0.9181286549707602,
+      "selective_accuracy_at_80_coverage": 1.0,
+      "aurc": 0.0041815720348235,
+      "max_psi_adj": 0.10557833036776605,
+      "subgroup_gap": 0.0409340659340659
+    },
+    "oversight": {
+      "target_error_rate": 0.05,
+      "threshold": 0.6287172432585553,
+      "coverage": 1.0,
+      "risk": 0.04678362573099415,
+      "review_rate": 0.0
+    },
+    "notes": [],
+    "n_cal": 114,
+    "n_test": 171,
+    "alpha": 0.1
+  },
+  "aegis": {
+    "name": "AEGIS-Net (proxy: imbalanced intrusion detection under drift)",
+    "task": "classification",
+    "trust_score": 41.5,
+    "verdict": "Not ready for autonomous use",
+    "pillars": {
+      "Calibration": 62.5,
+      "Uncertainty coverage": 0.0,
+      "Selective safety": 48.9,
+      "Stability": 0.0,
+      "Subgroup parity": 96.1
+    },
+    "metrics": {
+      "accuracy": 0.9526666666666667,
+      "accuracy_ci": [
+        0.9413333333333334,
+        0.9623499999999999
+      ],
+      "ece": 0.056262045371295304,
+      "ece_ci": [
+        0.04512370539946164,
+        0.06529159723540344
+      ],
+      "mce": 0.17820619531983162,
+      "brier": 0.0924611786818303,
+      "log_loss": 0.18414471662007015,
+      "temperature": 0.8205412824462079,
+      "ece_after_temperature_scaling": 0.03226320800008155,
+      "conformal_target": 0.9,
+      "conformal_coverage": 0.7813333333333333,
+      "mean_set_size": 0.8006666666666666,
+      "singleton_rate": 0.8006666666666666,
+      "selective_accuracy_at_80_coverage": 0.9758333333333333,
+      "aurc": 0.016131136863621588,
+      "max_psi_adj": 0.7278745064327894,
+      "subgroup_gap": 0.00588074605800315
+    },
+    "oversight": {
+      "target_error_rate": 0.05,
+      "threshold": 0.5035059523809523,
+      "coverage": 1.0,
+      "risk": 0.04733333333333333,
+      "review_rate": 0.0
+    },
+    "notes": [
+      "Confidence is miscalibrated (ECE=0.056). Temperature scaling (T=0.82) on the calibration set gives ECE=0.032.",
+      "Conformal coverage 78.1% is below the 90% target: exchangeability between calibration and test data is violated (shift).",
+      "Major covariate shift on 'flow_feat_0' (adjusted PSI=0.73); expect degraded performance and re-validate before use."
+    ],
+    "n_cal": 1500,
+    "n_test": 1500,
+    "alpha": 0.1
+  },
+  "axiom": {
+    "name": "Axiom-Zero (proxy: economic KPI forecasting with regime shift)",
+    "task": "regression",
+    "trust_score": 57.7,
+    "verdict": "Not ready for autonomous use",
+    "pillars": {
+      "Predictive skill": 45.2,
+      "Generalisation": 100.0,
+      "Uncertainty coverage": 85.7,
+      "Stability": 0.0
+    },
+    "metrics": {
+      "mae": 0.6699324257079607,
+      "mae_ci": [
+        0.5465659205227079,
+        0.8197813934341922
+      ],
+      "rmse": 0.8808157059357326,
+      "r2": 0.45164564132896146,
+      "mae_calibration_set": 0.6805352805864388,
+      "degradation_ratio": 0.9844198307112878,
+      "conformal_target": 0.9,
+      "conformal_coverage": 0.9142857142857143,
+      "interval_half_width": 1.4358994718331206,
+      "max_psi_adj": 1.1949375495801942
+    },
+    "oversight": {},
+    "notes": [
+      "Major covariate shift on 'kpi_lag2' (adjusted PSI=1.19); expect degraded performance and re-validate before use."
+    ],
+    "n_cal": 70,
+    "n_test": 70,
+    "alpha": 0.1
+  }
+}
