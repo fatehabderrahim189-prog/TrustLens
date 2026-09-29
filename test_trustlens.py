@@ -54,6 +54,15 @@ class TestUncertainty(unittest.TestCase):
         self.assertLessEqual(t["risk"], 0.10)
         self.assertGreater(t["coverage"], 0.0)
 
+    def test_prediction_sets_have_expected_coverage(self):
+        rng = np.random.default_rng(9)
+        p = rng.dirichlet(np.ones(3), 4000)
+        y = np.array([rng.choice(3, p=row) for row in p])
+        q = conformal_threshold(p[:2000], y[:2000], alpha=0.2)
+        coverage = set_coverage(y[2000:], prediction_sets(p[2000:], q))
+        self.assertGreaterEqual(coverage, 0.75)
+        self.assertLessEqual(coverage, 0.99)
+
 
 class TestDriftAndExplain(unittest.TestCase):
     def test_psi_same_vs_shifted(self):
