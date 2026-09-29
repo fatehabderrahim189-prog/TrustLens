@@ -75,6 +75,22 @@ Open `reports/index.html` after running the demo (also published via GitHub Page
 - The Trust Score weights all pillars equally; adapt weights to your risk context.
 - Not a substitute for clinical, security or regulatory validation.
 
+## Audit interpretation and non-goals
+
+TrustLens produces evidence for model evaluation; it does not certify a model as safe, compliant, or clinically valid.
+
+- Calibration: indicates how predicted confidence aligns with observed outcomes; it does not guarantee future calibration under distribution change.
+- Conformal coverage: evaluates empirical coverage under its assumptions; it does not provide per-subgroup, per-instance, or arbitrary out-of-distribution guarantees.
+- Risk–coverage: shows the relationship between selective escalation and observed error; it does not define a universal production safety threshold.
+- PSI / KS: provide evidence of changes in evaluated feature distributions; they do not establish label shift, concept drift, causality, or root cause.
+- Subgroup accuracy gaps: show observed differences among evaluated groups; they do not establish absence of bias in unmeasured or untested populations.
+- Permutation importance: describes global predictive reliance under evaluated data; it is not a causal explanation.
+- Trust Score: is a transparent heuristic summary of evaluated pillars; it is not a safety certification or regulatory approval.
+
+All findings should be interpreted with the evaluation dataset, assumptions, sample size, and deployment context.
+
+  
+
 ## Project layout
 
 ```
