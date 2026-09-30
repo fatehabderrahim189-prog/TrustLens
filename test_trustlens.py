@@ -80,20 +80,28 @@ class TestDriftAndExplain(unittest.TestCase):
         a, b = rng.normal(size=5000), rng.normal(size=5000)
         self.assertLess(psi(a, b), 0.05)
         self.assertGreater(psi(a, b + 1.0), 0.25)
-
     def test_psi_identical_distributions_is_near_zero(self):
         rng = np.random.default_rng(11)
         a = rng.normal(size=5000)
 
         self.assertLess(psi(a, a), 1e-12)
 
+    def test_psi_is_nonnegative(self):
+        rng = np.random.default_rng(12)
+        a = rng.normal(size=5000)
+        b = rng.normal(size=5000)
+
+        self.assertGreaterEqual(psi(a, b), 0.0)
     def test_drift_report_flags_shifted_feature(self):
         rng = np.random.default_rng(5)
-        X = rng.normal(size=(2000, 3)); Y = rng.normal(size=(2000, 3)); Y[:, 1] += 1.5
+        X = rng.normal(size=(2000, 3))
+        Y = rng.normal(size=(2000, 3))
+        Y[:, 1] += 1.5
+
         r = drift_report(X, Y, ["a", "b", "c"])
         self.assertEqual(r.feature[0], "b")
         self.assertEqual(r.status[0], "major")
-
+      
     def test_permutation_importance_finds_informative_feature(self):
         rng = np.random.default_rng(6)
         X = rng.normal(size=(1500, 4)); y = (X[:, 2] > 0).astype(int)
