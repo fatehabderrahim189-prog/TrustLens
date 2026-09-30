@@ -81,6 +81,12 @@ class TestDriftAndExplain(unittest.TestCase):
         self.assertLess(psi(a, b), 0.05)
         self.assertGreater(psi(a, b + 1.0), 0.25)
 
+    def test_psi_identical_distributions_is_near_zero(self):
+        rng = np.random.default_rng(11)
+        a = rng.normal(size=5000)
+
+        self.assertLess(psi(a, a), 1e-12)
+
     def test_drift_report_flags_shifted_feature(self):
         rng = np.random.default_rng(5)
         X = rng.normal(size=(2000, 3)); Y = rng.normal(size=(2000, 3)); Y[:, 1] += 1.5
