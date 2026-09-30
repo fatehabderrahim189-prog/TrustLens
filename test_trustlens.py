@@ -54,6 +54,16 @@ class TestUncertainty(unittest.TestCase):
         self.assertLessEqual(t["risk"], 0.10)
         self.assertGreater(t["coverage"], 0.0)
 
+    def test_threshold_for_risk_respects_requested_limit(self):
+        rng = np.random.default_rng(15)
+        conf = rng.uniform(0.5, 1.0, 3000)
+        correct = rng.uniform(size=3000) < conf
+
+        result = threshold_for_risk(conf, correct, 0.20)
+
+        self.assertLessEqual(result["risk"], 0.20)
+        self.assertGreater(result["coverage"], 0.0)
+
     def test_prediction_sets_have_expected_coverage(self):
         rng = np.random.default_rng(9)
         p = rng.dirichlet(np.ones(3), 4000)
