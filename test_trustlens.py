@@ -120,6 +120,23 @@ class TestDriftAndExplain(unittest.TestCase):
         self.assertEqual(imp.feature[0], "f2")
         self.assertGreater(imp.importance[0], 0.3)
 
+    def test_permutation_importance_keeps_irrelevant_feature_low(self):
+        rng = np.random.default_rng(14)
+        X = rng.normal(size=(1500, 3))
+        y = (X[:, 0] > 0).astype(int)
+
+        imp = permutation_importance(
+            lambda Z: (Z[:, 0] > 0).astype(int),
+            X,
+            y,
+            lambda a, b: float((a == b).mean()),
+            ["signal", "noise1", "noise2"],
+        )
+
+        self.assertEqual(imp.feature[0], "signal")
+        self.assertLess(imp.importance[1], 0.1)
+        self.assertLess(imp.importance[2], 0.1)
+
 
 class TestEndToEnd(unittest.TestCase):
     def test_classifier_audit_and_render(self):
