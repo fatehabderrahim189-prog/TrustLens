@@ -1,4 +1,4 @@
-import tempfile
+زمنimport tempfile
 import unittest
 from pathlib import Path
 
@@ -101,6 +101,16 @@ class TestDriftAndExplain(unittest.TestCase):
         r = drift_report(X, Y, ["a", "b", "c"])
         self.assertEqual(r.feature[0], "b")
         self.assertEqual(r.status[0], "major")
+
+    def test_drift_report_preserves_feature_names(self):
+        rng = np.random.default_rng(13)
+        X = rng.normal(size=(1000, 3))
+        Y = rng.normal(size=(1000, 3))
+        feature_names = ["age", "income", "score"]
+
+        r = drift_report(X, Y, feature_names)
+
+        self.assertEqual(list(r.feature), feature_names)
       
     def test_permutation_importance_finds_informative_feature(self):
         rng = np.random.default_rng(6)
